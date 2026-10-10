@@ -1,0 +1,37 @@
+import type { Metadata } from 'next';
+import { Card, CardContent } from '@/components/ui/card';
+import { CalendarCheck, ClipboardList, ShieldCheck, Users } from 'lucide-react';
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'ServicePro connects customers with verified field technicians through a dispatcher-managed workflow.',
+  openGraph: { title: 'About ServicePro', description: 'How our dispatcher-managed field service platform works.' },
+};
+
+const PILLARS = [
+  { icon: Users, title: 'Three roles, one workflow', body: 'Customers request work, administrators review and dispatch it, and technicians carry it out. Each role sees only what it needs.' },
+  { icon: ShieldCheck, title: 'Verification first', body: 'Technicians register, then wait for admin approval before they appear in dispatch suggestions or receive assignments.' },
+  { icon: CalendarCheck, title: 'No double bookings', body: 'Scheduling is validated on the server inside a locked transaction, so two dispatchers can’t assign the same slot at once.' },
+  { icon: ClipboardList, title: 'A full paper trail', body: 'Every status change is logged — who did it and when — so any job’s history can be audited.' },
+];
+
+export default function AboutPage() {
+  return (
+    <div className="container max-w-4xl py-16">
+      <h1 className="text-4xl font-bold tracking-tight">About ServicePro</h1>
+      <p className="mt-4 text-lg text-muted-foreground">
+        ServicePro is a field service management platform. Instead of leaving customers to haggle with strangers, a dispatcher reviews every request,
+        picks the most suitable verified technician, and schedules the visit — then payment and feedback close the loop.
+      </p>
+      <div className="mt-10 grid gap-6 sm:grid-cols-2">
+        {PILLARS.map((p) => (
+          <Card key={p.title}><CardContent className="p-6">
+            <p.icon className="mb-3 h-7 w-7 text-primary" aria-hidden />
+            <h2 className="font-semibold">{p.title}</h2>
+            <p className="mt-2 text-sm text-muted-foreground">{p.body}</p>
+          </CardContent></Card>
+        ))}
+      </div>
+    </div>
+  );
+}
