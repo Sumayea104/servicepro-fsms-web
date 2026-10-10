@@ -11,7 +11,7 @@ ServicePro FSMS Web is the **Next.js frontend** for the ServicePro Field Service
 | **Frontend Repo**     | <https://github.com/Sumayea104/servicepro-fsms-web>           |
 | **Live Frontend**     | `https://<your-frontend>.vercel.app`                          |
 | **Backend Repo**      | <https://github.com/Sumayea104/servicepro-fsms>               |
-| **Live API**          | `https://<your-service>.onrender.com/api/v1`                  |
+| **Live API**          | `https://https://servicepro-fsms-1.onrender.com/api/v1`                  |
 | **Demo Video**        | `<paste your video link here>`                                |
 
 ### 🔐 One-click demo login
