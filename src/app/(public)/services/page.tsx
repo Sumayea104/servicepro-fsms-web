@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
-import { Droplets, Hammer, PaintRoller, Plug, Snowflake, Sparkles, Wrench, WashingMachine, type LucideIcon } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { PageHero } from '@/components/layout/page-hero';
+import { humanize } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Services',
@@ -10,34 +12,35 @@ export const metadata: Metadata = {
   openGraph: { title: 'ServicePro services', description: 'Every home and office repair category in one place.' },
 };
 
-const SERVICES: { icon: LucideIcon; name: string; body: string }[] = [
-  { icon: Plug, name: 'Electrical', body: 'Wiring faults, switchboards, lighting, fans and power issues.' },
-  { icon: Droplets, name: 'Plumbing', body: 'Leaks, blocked drains, taps, pipes, geysers and water pumps.' },
-  { icon: Snowflake, name: 'AC repair', body: 'Servicing, gas refills, cooling problems and installations.' },
-  { icon: WashingMachine, name: 'Appliance repair', body: 'Refrigerators, washing machines, ovens and other household appliances.' },
-  { icon: Hammer, name: 'Carpentry', body: 'Furniture repair, door and window fittings, custom woodwork.' },
-  { icon: PaintRoller, name: 'Painting', body: 'Interior and exterior repainting, touch-ups and waterproof coatings.' },
-  { icon: Sparkles, name: 'Cleaning', body: 'Deep cleaning for homes, offices and post-renovation sites.' },
-  { icon: Wrench, name: 'Other repairs', body: 'Something not listed? Describe it and a dispatcher will find the right person.' },
+const SERVICES = [
+  { slug: 'electrical', key: 'ELECTRICAL', body: 'Wiring faults, switchboards, lighting, fans and power issues.' },
+  { slug: 'plumbing', key: 'PLUMBING', body: 'Leaks, blocked drains, taps, pipes, geysers and water pumps.' },
+  { slug: 'ac-repair', key: 'AC_REPAIR', body: 'Servicing, gas refills, cooling problems and installations.' },
+  { slug: 'appliance-repair', key: 'APPLIANCE_REPAIR', body: 'Refrigerators, washing machines, ovens and household appliances.' },
+  { slug: 'carpentry', key: 'CARPENTRY', body: 'Furniture repair, door and window fittings, custom woodwork.' },
+  { slug: 'painting', key: 'PAINTING', body: 'Interior and exterior repainting, touch-ups and waterproof coatings.' },
+  { slug: 'cleaning', key: 'CLEANING', body: 'Deep cleaning for homes, offices and post-renovation sites.' },
+  { slug: 'other', key: 'OTHER', body: 'Something not listed? Describe it and a dispatcher will find the right person.' },
 ];
 
 export default function ServicesPage() {
   return (
-    <div className="container py-16">
-      <div className="mx-auto max-w-2xl text-center">
-        <h1 className="text-4xl font-bold tracking-tight">Services</h1>
-        <p className="mt-3 text-lg text-muted-foreground">Pick a category when you submit a request — we’ll match you with a technician who has that skill.</p>
-      </div>
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <>
+      <PageHero eyebrow="Services" title="Every repair, matched to the right technician" description="Pick a category when you submit a request — dispatchers only assign verified technicians who have that skill.">
+        <Button asChild size="lg" variant="gold"><Link href="/register">Request a service <ArrowRight className="h-4 w-4" /></Link></Button>
+      </PageHero>
+      <div className="container grid gap-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
         {SERVICES.map((s) => (
-          <Card key={s.name}><CardContent className="p-6">
-            <s.icon className="mb-4 h-8 w-8 text-primary" aria-hidden />
-            <h2 className="font-semibold">{s.name}</h2>
-            <p className="mt-2 text-sm text-muted-foreground">{s.body}</p>
-          </CardContent></Card>
+          <article key={s.slug} className="group overflow-hidden rounded-2xl border bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <div className="overflow-hidden"><Image src={`/images/service-${s.slug}.svg`} alt={`${humanize(s.key)} illustration`} width={480} height={320} className="h-auto w-full transition-transform duration-500 group-hover:scale-105" /></div>
+            <div className="p-5">
+              <h2 className="font-bold">{humanize(s.key)}</h2>
+              <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
+              <Link href={`/technicians?skill=${s.key}`} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">See technicians <ArrowRight className="h-3.5 w-3.5" /></Link>
+            </div>
+          </article>
         ))}
       </div>
-      <div className="mt-12 text-center"><Button asChild size="lg"><Link href="/register">Request a service</Link></Button></div>
-    </div>
+    </>
   );
 }

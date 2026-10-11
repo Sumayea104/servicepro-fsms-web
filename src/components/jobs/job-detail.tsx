@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import { Calendar, FileText, MapPin, Paperclip, Star, User, Wallet } from 'lucide-react';
+import { Calendar, ExternalLink, FileText, MapPin, Paperclip, Star, User, Wallet } from 'lucide-react';
+import { JobStepper } from './job-stepper';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { StatusBadge } from '@/components/shared/status-badge';
 import { formatCurrency, formatDateTime, humanize } from '@/lib/utils';
@@ -18,12 +19,14 @@ export function JobDetailView({ job, showCustomer }: { job: JobDetail; showCusto
           <CardHeader>
             <div className="flex flex-wrap items-center gap-2"><StatusBadge status={job.status} /><StatusBadge status={job.priority} /></div>
             <CardTitle className="text-2xl">{job.title}</CardTitle>
+            <p className="text-xs text-muted-foreground">Request #{job.id.slice(0, 8).toUpperCase()}</p>
           </CardHeader>
           <CardContent>
+            <div className="mb-6 rounded-2xl bg-muted/50 p-5"><JobStepper status={job.status} /></div>
             <p className="whitespace-pre-wrap text-sm">{job.description}</p>
             <dl className="mt-6 divide-y">
               <Row label="Category">{humanize(job.category)}</Row>
-              <Row label="Address"><span className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />{job.address}</span></Row>
+              <Row label="Address"><span className="flex flex-wrap items-start gap-x-3 gap-y-1"><span className="flex items-start gap-2"><MapPin className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground" aria-hidden />{job.address}</span><a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(job.address)}`} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1 text-xs font-medium text-primary hover:underline">Open in Maps <ExternalLink className="h-3 w-3" aria-hidden /></a></span></Row>
               <Row label="Scheduled"><span className="flex items-center gap-2"><Calendar className="h-4 w-4 text-muted-foreground" aria-hidden />{formatDateTime(job.scheduledAt)}</span></Row>
               <Row label="Estimated cost">{formatCurrency(job.estimatedCost)}</Row>
               <Row label="Final cost">{formatCurrency(job.finalCost)}</Row>

@@ -19,7 +19,7 @@ export default async function AdminTechnicians({ searchParams }: { searchParams:
   const data = await serverApi<Paginated<TechnicianProfile>>(tab === 'pending' ? '/admin/technicians/pending' : '/technicians', { query: { page: sp.page || 1, limit: 10 } });
 
   const columns: Column<TechnicianProfile>[] = [
-    { header: 'Technician', cell: (t) => <div><p className="font-medium">{t.user?.fullName}</p><p className="text-xs text-muted-foreground">{t.user?.email}</p></div> },
+    { header: 'Technician', cell: (t) => <div><p className="font-medium">{t.user?.fullName}</p>{t.user?.email && <p className="text-xs text-muted-foreground">{t.user.email}</p>}</div> },
     { header: 'Skills', cell: (t) => (t.skills.length ? t.skills.join(', ') : <span className="text-muted-foreground">None added</span>) },
     { header: 'Rating', cell: (t) => <span className="flex items-center gap-1"><Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" aria-hidden />{t.rating.toFixed(1)}</span> },
     { header: 'Jobs', cell: (t) => t.totalJobs },

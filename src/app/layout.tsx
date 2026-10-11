@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import localFont from 'next/font/local';
 import './globals.css';
 import { Providers } from '@/components/providers';
 
@@ -14,12 +15,15 @@ export const metadata: Metadata = {
   },
 };
 
+// Inter, self-hosted (no network request to Google at runtime)
+const inter = localFont({ src: './fonts/Inter-Variable.woff2', variable: '--font-inter', weight: '100 900', display: 'swap' });
+
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="min-h-screen font-sans antialiased">
+      <body className={`${inter.variable} min-h-screen font-sans antialiased`}>
         <Providers>{children}</Providers>
       </body>
     </html>

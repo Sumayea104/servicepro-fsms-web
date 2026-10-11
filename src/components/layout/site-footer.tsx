@@ -1,39 +1,30 @@
 import Link from 'next/link';
-import { Wrench } from 'lucide-react';
+import { Logo } from './logo';
+
+const COLS = [
+  { title: 'Platform', links: [['Services', '/services'], ['Technicians', '/technicians'], ['FAQ', '/faq']] },
+  { title: 'Company', links: [['About', '/about'], ['Contact', '/contact']] },
+  { title: 'Account', links: [['Log in', '/login'], ['Create account', '/register']] },
+];
 
 export function SiteFooter() {
   return (
-    <footer className="border-t bg-muted/30">
-      <div className="container grid gap-8 py-12 sm:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-brand-gradient text-white">
+      <div className="container grid gap-10 py-14 md:grid-cols-[1.5fr_repeat(3,1fr)]">
         <div>
-          <Link href="/" className="flex items-center gap-2 font-bold"><Wrench className="h-5 w-5 text-primary" aria-hidden /> ServicePro</Link>
-          <p className="mt-3 text-sm text-muted-foreground">Dispatch-managed field service: verified technicians, scheduled visits, transparent payments.</p>
+          <Logo light />
+          <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/60">Dispatch-managed field service: verified technicians, conflict-free scheduling and transparent payments, from request to receipt.</p>
         </div>
-        <div>
-          <h4 className="mb-3 text-sm font-semibold">Company</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/about" className="hover:text-foreground">About</Link></li>
-            <li><Link href="/contact" className="hover:text-foreground">Contact</Link></li>
-            <li><Link href="/faq" className="hover:text-foreground">FAQ</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="mb-3 text-sm font-semibold">Services</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/services" className="hover:text-foreground">Electrical &amp; AC repair</Link></li>
-            <li><Link href="/services" className="hover:text-foreground">Plumbing &amp; appliances</Link></li>
-            <li><Link href="/services" className="hover:text-foreground">Carpentry &amp; painting</Link></li>
-          </ul>
-        </div>
-        <div>
-          <h4 className="mb-3 text-sm font-semibold">Get started</h4>
-          <ul className="space-y-2 text-sm text-muted-foreground">
-            <li><Link href="/register" className="hover:text-foreground">Create an account</Link></li>
-            <li><Link href="/login" className="hover:text-foreground">Log in</Link></li>
-          </ul>
-        </div>
+        {COLS.map((c) => (
+          <div key={c.title}>
+            <h4 className="mb-4 text-xs font-semibold uppercase tracking-wider text-white/45">{c.title}</h4>
+            <ul className="space-y-2.5 text-sm">
+              {c.links.map(([label, href]) => <li key={href}><Link href={href} className="text-white/70 transition-colors hover:text-gold">{label}</Link></li>)}
+            </ul>
+          </div>
+        ))}
       </div>
-      <div className="border-t py-4 text-center text-xs text-muted-foreground">© {new Date().getFullYear()} ServicePro FSMS. All rights reserved.</div>
+      <div className="border-t border-white/10 py-5 text-center text-xs text-white/45">© {new Date().getFullYear()} ServicePro FSMS · Built for dependable field service</div>
     </footer>
   );
 }

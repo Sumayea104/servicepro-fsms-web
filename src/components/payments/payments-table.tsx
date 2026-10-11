@@ -14,6 +14,7 @@ export function PaymentsTable({ payments, role }: { payments: PaymentWithJob[]; 
     { header: 'Method', cell: (p) => humanize(p.method) },
     { header: 'Status', cell: (p) => <StatusBadge status={p.status} /> },
     { header: 'Paid on', cell: (p) => formatDateTime(p.paidAt), className: 'whitespace-nowrap' },
+    ...(role === 'CUSTOMER' ? [{ header: 'Receipt', cell: (p: PaymentWithJob) => (p.status === 'PAID' ? <Link href={`/dashboard/payments/${p.id}`} className="font-medium text-primary hover:underline">View</Link> : <span className="text-muted-foreground">—</span>) }] : []),
   ];
   return <DataTable columns={columns} rows={payments} empty={<EmptyState icon={CreditCard} title="No payments yet" description="Payments appear here once a job is completed and paid for." />} />;
 }

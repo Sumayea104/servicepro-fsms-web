@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHero } from '@/components/layout/page-hero';
 
 export const metadata: Metadata = {
   title: 'FAQ',
@@ -18,9 +19,10 @@ const FAQS = [
 
 export default function FaqPage() {
   return (
-    <div className="container max-w-3xl py-16">
-      <h1 className="text-4xl font-bold tracking-tight">Frequently asked questions</h1>
-      <div className="mt-8 divide-y rounded-xl border">
+    <>
+      <PageHero eyebrow="FAQ" title="Frequently asked questions" description="Quick answers about requests, scheduling, payments and cancellations." />
+      <div className="container max-w-3xl py-14">
+      <div className="divide-y rounded-2xl border bg-card shadow-soft">
         {FAQS.map((f) => (
           <details key={f.q} className="group p-5">
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium">
@@ -30,6 +32,7 @@ export default function FaqPage() {
           </details>
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 }

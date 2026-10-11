@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 470" width="640" height="470" fill="none"><defs><filter id="sh" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="14" stdDeviation="14" flood-color="#050b24" flood-opacity=".38"/></filter><filter id="sh2" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#050b24" flood-opacity=".28"/></filter><radialGradient id="glowB"><stop offset="0" stop-color="#4f7cff" stop-opacity=".45"/><stop offset="1" stop-color="#4f7cff" stop-opacity="0"/></radialGradient><radialGradient id="glowG"><stop offset="0" stop-color="#f5b942" stop-opacity=".55"/><stop offset="1" stop-color="#f5b942" stop-opacity="0"/></radialGradient></defs>
+<circle cx="330" cy="270" r="230" fill="url(#glowB)"/>
+<circle cx="520" cy="110" r="90" fill="url(#glowG)"/>
+<circle cx="90" cy="430" r="70" fill="#f5b942" opacity=".16"/>
+<!-- main window -->
+<g filter="url(#sh)">
+<rect x="120" y="92" width="380" height="330" rx="22" fill="#ffffff"/>
+</g>
+<rect x="120" y="92" width="380" height="46" rx="22" fill="#eef2fb"/>
+<rect x="120" y="116" width="380" height="22" fill="#eef2fb"/>
+<circle cx="146" cy="115" r="5.5" fill="#f87171"/><circle cx="164" cy="115" r="5.5" fill="#fbbf24"/><circle cx="182" cy="115" r="5.5" fill="#34d399"/>
+<rect x="330" y="108" width="150" height="14" rx="7" fill="#dbe3f5"/>
+<!-- job card -->
+<rect x="144" y="158" width="332" height="108" rx="16" fill="#f6f8fd" stroke="#e3e9f7"/>
+<rect x="162" y="176" width="40" height="40" rx="12" fill="#1e3a8a"/>
+<path d="M176 205 l6 -16 l6 16 m-9 -6 h6" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="214" y="193" font-family="Inter, Arial, Helvetica, sans-serif" font-size="15" font-weight="700" fill="#0f1a3d">AC not cooling</text>
+<text x="214" y="212" font-family="Inter, Arial, Helvetica, sans-serif" font-size="12" fill="#6b7694">Dhanmondi · Today 3:00 PM</text>
+<rect x="388" y="178" width="72" height="24" rx="12" fill="#dbeafe"/>
+<text x="424" y="194.5" font-family="Inter, Arial, Helvetica, sans-serif" font-size="11.5" font-weight="700" fill="#1d4ed8" text-anchor="middle">Assigned</text>
+<!-- stepper -->
+<line x1="176" y1="244" x2="446" y2="244" stroke="#dbe3f5" stroke-width="4" stroke-linecap="round"/>
+<line x1="176" y1="244" x2="356" y2="244" stroke="#1e3a8a" stroke-width="4" stroke-linecap="round"/>
+<circle cx="176" cy="244" r="7" fill="#1e3a8a"/><circle cx="266" cy="244" r="7" fill="#1e3a8a"/><circle cx="356" cy="244" r="7" fill="#1e3a8a"/>
+<circle cx="446" cy="244" r="7" fill="#fff" stroke="#c4cee8" stroke-width="3"/>
+<!-- technician row -->
+<rect x="144" y="282" width="332" height="74" rx="16" fill="#ffffff" stroke="#e3e9f7"/>
+<circle cx="182" cy="319" r="22" fill="#f59e0b"/><circle cx="182" cy="315.7" r="8.36" fill="#fff" opacity=".92"/><path d="M168.36 334.84 a13.64 11.0 0 0 1 27.28 0 z" fill="#fff" opacity=".92"/>
+<text x="216" y="313" font-family="Inter, Arial, Helvetica, sans-serif" font-size="14" font-weight="700" fill="#0f1a3d">Rahim Uddin</text>
+<text x="216" y="332" font-family="Inter, Arial, Helvetica, sans-serif" font-size="11.5" fill="#6b7694">Verified · 4.9 ★ · 128 jobs</text>
+<rect x="392" y="305" width="68" height="28" rx="14" fill="#f5b942"/>
+<text x="426" y="323.5" font-family="Inter, Arial, Helvetica, sans-serif" font-size="12" font-weight="700" fill="#2a1d00" text-anchor="middle">Track</text>
+<!-- footer buttons -->
+<rect x="144" y="372" width="150" height="32" rx="10" fill="#1e3a8a"/>
+<text x="219" y="392.5" font-family="Inter, Arial, Helvetica, sans-serif" font-size="12.5" font-weight="700" fill="#fff" text-anchor="middle">Pay securely</text>
+<rect x="306" y="372" width="170" height="32" rx="10" fill="#eef2fb"/>
+<rect x="326" y="384" width="130" height="8" rx="4" fill="#c9d3ec"/>
+
+<!-- calendar floating -->
+<g class="f1" filter="url(#sh2)">
+<rect x="468" y="40" width="150" height="150" rx="18" fill="#ffffff"/>
+</g>
+<rect x="468" y="40" width="150" height="38" rx="18" fill="#1e3a8a"/><rect x="468" y="60" width="150" height="18" fill="#1e3a8a"/>
+<text x="543" y="65" font-family="Inter, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Scheduled</text>
+<circle cx="490" cy="102" r="7" fill="#dbe3f5"/><circle cx="516" cy="102" r="7" fill="#dbe3f5"/><circle cx="542" cy="102" r="7" fill="#dbe3f5"/><circle cx="568" cy="102" r="7" fill="#dbe3f5"/><circle cx="594" cy="102" r="7" fill="#dbe3f5"/><circle cx="490" cy="126" r="7" fill="#dbe3f5"/><circle cx="516" cy="126" r="7" fill="#dbe3f5"/><circle cx="542" cy="126" r="7" fill="#f5b942"/><circle cx="568" cy="126" r="7" fill="#dbe3f5"/><circle cx="594" cy="126" r="7" fill="#dbe3f5"/><circle cx="490" cy="150" r="7" fill="#dbe3f5"/><circle cx="516" cy="150" r="7" fill="#dbe3f5"/><circle cx="542" cy="150" r="7" fill="#dbe3f5"/><circle cx="568" cy="150" r="7" fill="#dbe3f5"/><circle cx="594" cy="150" r="7" fill="#dbe3f5"/>
+<path d="M517 150 l8 8 l14 -16" stroke="#1e3a8a" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" opacity="0"/>
+
+<!-- map pin floating -->
+<g filter="url(#sh2)"><rect x="40" y="300" width="150" height="116" rx="18" fill="#ffffff"/></g>
+<rect x="52" y="312" width="126" height="92" rx="12" fill="#e8eefb"/>
+<path d="M62 392 C 90 360, 110 380, 130 346 S 160 330, 168 322" stroke="#1e3a8a" stroke-width="3" stroke-dasharray="6 6" stroke-linecap="round"/>
+<circle cx="62" cy="392" r="6" fill="#1e3a8a"/>
+<path d="M168 296 c-12 0 -20 9 -20 20 c0 15 20 32 20 32 s20 -17 20 -32 c0 -11 -8 -20 -20 -20z" fill="#f5b942" stroke="#fff" stroke-width="3" transform="translate(0,6)"/>
+<circle cx="168" cy="322" r="6.5" fill="#fff"/>
+
+<!-- paid badge -->
+<g filter="url(#sh2)"><rect x="440" y="378" width="172" height="62" rx="18" fill="#ffffff"/></g>
+<circle cx="478" cy="409" r="19" fill="#d1fae5"/>
+<path d="M468 409 l7 7 l12 -14" stroke="#059669" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="506" y="404" font-family="Inter, Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#0f1a3d">Payment done</text>
+<text x="506" y="422" font-family="Inter, Arial, Helvetica, sans-serif" font-size="11.5" fill="#6b7694">Stripe · bKash</text>
+
+<!-- wrench badge -->
+<g filter="url(#sh2)"><circle cx="86" cy="150" r="42" fill="#f5b942"/></g>
+<g transform="translate(86 150) rotate(-40)"><rect x="-6" y="-24" width="12" height="46" rx="6" fill="#2a1d00"/><path d="M-14 -28 a14 14 0 1 1 28 0 l-8 0 l0 -8 l-12 0 l0 8z" fill="#2a1d00"/><circle cx="0" cy="22" r="7" fill="#2a1d00"/><circle cx="0" cy="22" r="2.6" fill="#f5b942"/></g>
+</svg>

@@ -20,9 +20,16 @@ export function timeAgo(value: string) {
 
 export function formatCurrency(amount: number | string | null | undefined, currency = 'BDT') {
   if (amount === null || amount === undefined) return '—';
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency, maximumFractionDigits: 2 }).format(Number(amount));
+  const n = Number(amount);
+  // Short symbol (৳ / $), and no ".00" on whole amounts, so figures fit in cards.
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency, currencyDisplay: 'narrowSymbol', minimumFractionDigits: Number.isInteger(n) ? 0 : 2, maximumFractionDigits: 2 }).format(n);
 }
 
 export function humanize(value: string) {
-  return value.replace(/_/g, ' ').toLowerCase().replace(/^\w|\s\w/g, (c) => c.toUpperCase());
+  return value
+    .replace(/_/g, ' ')
+    .toLowerCase()
+    .replace(/^\w|\s\w/g, (c) => c.toUpperCase())
+    .replace(/\bAc\b/g, 'AC')
+    .replace(/\bBkash\b/g, 'bKash');
 }

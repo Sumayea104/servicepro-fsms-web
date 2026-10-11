@@ -1,14 +1,16 @@
 import Link from 'next/link';
 import { cookies } from 'next/headers';
-import { Wrench } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ACCESS_COOKIE, REFRESH_COOKIE, ROLE_HOME } from '@/lib/constants';
 import { decodeToken, isExpired } from '@/lib/jwt';
+import { Logo } from './logo';
 import { MobileNav } from './mobile-nav';
+import { ThemeToggle } from './theme-toggle';
 
 export const PUBLIC_LINKS = [
   { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
+  { href: '/technicians', label: 'Technicians' },
   { href: '/faq', label: 'FAQ' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
@@ -21,28 +23,26 @@ export async function SiteHeader() {
   const home = loggedIn ? ROLE_HOME[claims!.role] : null;
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-background/80 backdrop-blur">
+    <header className="glass sticky top-0 z-40 border-b">
       <div className="container flex h-16 items-center justify-between">
-        <Link href="/" className="flex items-center gap-2 font-bold">
-          <span className="rounded-lg bg-primary p-1.5 text-primary-foreground"><Wrench className="h-5 w-5" aria-hidden /></span>
-          ServicePro
-        </Link>
-        <nav className="hidden items-center gap-6 text-sm md:flex" aria-label="Main">
+        <Logo />
+        <nav className="hidden items-center gap-1 text-sm md:flex" aria-label="Main">
           {PUBLIC_LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="text-muted-foreground transition-colors hover:text-foreground">{l.label}</Link>
+            <Link key={l.href} href={l.href} className="rounded-lg px-3 py-2 font-medium text-muted-foreground transition-colors hover:bg-accent hover:text-foreground">{l.label}</Link>
           ))}
         </nav>
         <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           {home ? (
-            <Button asChild><Link href={home}>Go to dashboard</Link></Button>
+            <Button asChild variant="gold"><Link href={home}>Dashboard</Link></Button>
           ) : (
             <>
               <Button asChild variant="ghost"><Link href="/login">Log in</Link></Button>
-              <Button asChild><Link href="/register">Get started</Link></Button>
+              <Button asChild variant="gold"><Link href="/register">Get started</Link></Button>
             </>
           )}
         </div>
-        <MobileNav links={PUBLIC_LINKS} dashboardHref={home} />
+        <div className="flex items-center gap-1 md:hidden"><ThemeToggle /><MobileNav links={PUBLIC_LINKS} dashboardHref={home} /></div>
       </div>
     </header>
   );

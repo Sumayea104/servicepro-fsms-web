@@ -11,7 +11,7 @@ ServicePro FSMS Web is the **Next.js frontend** for the ServicePro Field Service
 | **Frontend Repo**     | <https://github.com/Sumayea104/servicepro-fsms-web>           |
 | **Live Frontend**     | `https://<your-frontend>.vercel.app`                          |
 | **Backend Repo**      | <https://github.com/Sumayea104/servicepro-fsms>               |
-| **Live API**          | `https://https://servicepro-fsms-1.onrender.com/api/v1`                  |
+| **Live API**          | `https://<your-service>.onrender.com/api/v1`                  |
 | **Demo Video**        | `<paste your video link here>`                                |
 
 ### 🔐 One-click demo login
@@ -34,7 +34,9 @@ The login page has a **Quick Demo Login** button for each role - no typing neede
 | ------------------- | ---------------------------------------------------------------- |
 | **Framework**       | Next.js 15 (App Router) + React 19                               |
 | **Language**        | TypeScript (strict mode, no `any`)                               |
-| **Styling / UI**    | Tailwind CSS 3, Radix UI primitives (shadcn-style components), Lucide icons |
+| **Styling / UI**    | Tailwind CSS 3, Radix UI primitives (shadcn-style components), Lucide icons, `next-themes` (light/dark) |
+| **Typography**      | Inter (self-hosted via `next/font/local`)                        |
+| **Imagery**         | Custom SVG illustrations in `public/images`, served with `next/image` |
 | **Server state**    | TanStack Query 5                                                 |
 | **Client state**    | Zustand                                                          |
 | **Forms**           | React Hook Form + Zod                                            |
@@ -70,25 +72,34 @@ The login page has a **Quick Demo Login** button for each role - no typing neede
 - Verify or reject technician applications
 - Manage users (change role, deactivate) and browse the **audit log**
 
+### ✨ Experience & design
+- Elegant navy-and-gold design system with **light and dark mode** (follows the OS, toggle in the header)
+- **Ctrl/⌘ + K command palette** in every dashboard: jump to any page, switch theme, search jobs (admin) or log out
+- **Public technician directory** (`/technicians`) with skill and availability filters, plus profile pages with live ratings and reviews
+- Visual **job progress stepper**, “Open in Maps” on addresses, **printable payment receipts**
+- Customer **current-request tracker**, technician **upcoming-schedule agenda**, admin **attention cards, 14-day trend, activity feed and revenue per currency**
+- Illustrated landing page, service cards, empty states and 404 page; password strength meter and show/hide on sign-up
+
 ### 🔔 Everyone
 - Notification bell with unread count and **optimistic** mark-as-read
 - Role-based navigation, responsive layout (mobile drawer, desktop sidebar), skeleton loaders, empty states and error boundaries
 
 ---
 
-## 🗺️ Pages (26)
+## 🗺️ Pages (29 + 404 + error boundary)
 
 | Area | Route | Description |
 | ---- | ----- | ----------- |
 | **Public** | `/` | Landing page |
 | | `/about` · `/services` · `/faq` · `/contact` | Company, service categories, FAQ, contact form |
+| | `/technicians` · `/technicians/[id]` | Verified technician directory and public profile with reviews |
 | **Auth** | `/login` | Email login + **one-click demo login** for all 3 roles |
 | | `/register` | Sign up as Customer or Technician |
 | **Customer** | `/dashboard` | My requests (stats, filters, pagination) |
 | | `/dashboard/jobs/new` | Multi-step create-request wizard |
 | | `/dashboard/jobs/[id]` | Job details, timeline, attachments, cancel, review |
 | | `/dashboard/jobs/[id]/pay` | Stripe / bKash checkout |
-| | `/dashboard/payments` | Payment history |
+| | `/dashboard/payments` · `/dashboard/payments/[id]` | Payment history and printable receipt |
 | | `/dashboard/profile` | Profile and avatar |
 | **Technician** | `/provider` | My assigned jobs |
 | | `/provider/jobs/[id]` | Job actions, service report, work photos |
@@ -110,7 +121,7 @@ The login page has a **Quick Demo Login** button for each role - no typing neede
 servicepro-fsms-web/
 ├── src/
 │   ├── app/
-│   │   ├── (public)/            # home, about, services, faq, contact
+│   │   ├── (public)/            # home, about, services, faq, contact, technicians
 │   │   ├── (auth)/              # login, register
 │   │   ├── dashboard/           # customer area  (layout + pages + loading/error)
 │   │   ├── provider/            # technician area
@@ -121,6 +132,7 @@ servicepro-fsms-web/
 │   │   └── error.tsx
 │   ├── components/
 │   │   ├── ui/                  # button, input, card, dialog, switch, skeleton…
+│   │   ├── technicians/         # technician card, availability filter
 │   │   ├── shared/              # DataTable, StatCard, StatusBadge, SearchInput, Pagination, EmptyState…
 │   │   ├── layout/              # site header/footer, dashboard shell, notification bell
 │   │   ├── forms/               # login, register, contact, job wizard
@@ -134,6 +146,7 @@ servicepro-fsms-web/
 │   ├── store/auth-store.ts      # Zustand store
 │   ├── types/api.ts             # typed API contracts
 │   └── middleware.ts            # route protection + token rotation
+├── public/images/               # custom SVG illustrations (hero, services, auth, empty, 404)
 ├── .env.example
 └── package.json
 ```
@@ -214,6 +227,7 @@ npm run dev                      # http://localhost:3000
 ### Known limitations
 - Tokens are stored in JavaScript-readable cookies so the browser can call the API cross-origin. An httpOnly-cookie backend-for-frontend would be stricter.
 - Card payments are recorded in USD and bKash in BDT, so earnings are totalled per currency.
+- Illustrations are original SVG artwork; drop real photos into `public/images` and swap the `next/image` sources to use them.
 - Google sign-in is available on the API (`POST /auth/google`) but has no button in this UI.
 
 ---

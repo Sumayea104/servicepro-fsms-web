@@ -24,6 +24,8 @@ export interface TechnicianProfile {
   skills: string[];
   serviceAreas: string[];
   bio?: string | null;
+  experience?: number | null;
+  hourlyRate?: number | string | null;
   isVerified: boolean;
   isAvailable: boolean;
   currentLat?: number | null;
@@ -68,6 +70,9 @@ export interface Payment {
   currency: string;
   status: PaymentStatus;
   method: PaymentMethod;
+  transactionId?: string | null;
+  stripePaymentId?: string | null;
+  bkashTrxId?: string | null;
   paidAt?: string | null;
   createdAt: string;
 }

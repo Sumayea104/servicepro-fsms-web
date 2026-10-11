@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
+import { PageHero } from '@/components/layout/page-hero';
 import { CalendarCheck, ClipboardList, ShieldCheck, Users } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -17,13 +18,10 @@ const PILLARS = [
 
 export default function AboutPage() {
   return (
-    <div className="container max-w-4xl py-16">
-      <h1 className="text-4xl font-bold tracking-tight">About ServicePro</h1>
-      <p className="mt-4 text-lg text-muted-foreground">
-        ServicePro is a field service management platform. Instead of leaving customers to haggle with strangers, a dispatcher reviews every request,
-        picks the most suitable verified technician, and schedules the visit — then payment and feedback close the loop.
-      </p>
-      <div className="mt-10 grid gap-6 sm:grid-cols-2">
+    <>
+      <PageHero eyebrow="About" title="Field service, run like a well-oiled workshop" description="Instead of leaving customers to haggle with strangers, a dispatcher reviews every request, picks the most suitable verified technician and schedules the visit — then payment and feedback close the loop." />
+      <div className="container max-w-5xl py-16">
+      <div className="grid gap-6 sm:grid-cols-2">
         {PILLARS.map((p) => (
           <Card key={p.title}><CardContent className="p-6">
             <p.icon className="mb-3 h-7 w-7 text-primary" aria-hidden />
@@ -32,6 +30,7 @@ export default function AboutPage() {
           </CardContent></Card>
         ))}
       </div>
-    </div>
+      </div>
+    </>
   );
 }
