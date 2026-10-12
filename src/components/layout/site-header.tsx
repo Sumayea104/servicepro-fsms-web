@@ -42,7 +42,7 @@ export async function SiteHeader() {
             </>
           )}
         </div>
-        <div className="flex items-center gap-1 md:hidden"><ThemeToggle /><MobileNav links={PUBLIC_LINKS} dashboardHref={home} /></div>
+        <div className="flex items-center gap-1 md:hidden"><ThemeToggle compact /><MobileNav links={PUBLIC_LINKS} dashboardHref={home} /></div>
       </div>
     </header>
   );

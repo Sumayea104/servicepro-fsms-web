@@ -52,3 +52,6 @@ export function jobHref(role: Role | undefined, id: string) {
   if (role === 'TECHNICIAN') return `/provider/jobs/${id}`;
   return `/dashboard/jobs/${id}`;
 }
+
+/** WebSocket origin for live notifications (the API serves /ws). Override with NEXT_PUBLIC_WS_URL. */
+export const WS_URL = process.env.NEXT_PUBLIC_WS_URL || API_URL.replace(/^http/, 'ws').replace(/\/api\/v\d+\/?$/, '');

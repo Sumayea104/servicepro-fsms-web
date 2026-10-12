@@ -9,10 +9,10 @@ ServicePro FSMS Web is the **Next.js frontend** for the ServicePro Field Service
 | Item                  | Value                                                         |
 | --------------------- | ------------------------------------------------------------- |
 | **Frontend Repo**     | <https://github.com/Sumayea104/servicepro-fsms-web>           |
-| **Live Frontend**     | `https://<your-frontend>.vercel.app`                          |
+| **Live Frontend**     | `https://servicepro-fsms-web.vercel.app/`                          |
 | **Backend Repo**      | <https://github.com/Sumayea104/servicepro-fsms>               |
-| **Live API**          | `https://<your-service>.onrender.com/api/v1`                  |
-| **Demo Video**        | `<paste your video link here>`                                |
+| **Live API**          | `https://servicepro-fsms-1.onrender.com/`                  |
+
 
 ### 🔐 One-click demo login
 
@@ -36,7 +36,9 @@ The login page has a **Quick Demo Login** button for each role - no typing neede
 | **Language**        | TypeScript (strict mode, no `any`)                               |
 | **Styling / UI**    | Tailwind CSS 3, Radix UI primitives (shadcn-style components), Lucide icons, `next-themes` (light/dark) |
 | **Typography**      | Inter (self-hosted via `next/font/local`)                        |
-| **Imagery**         | Custom SVG illustrations in `public/images`, served with `next/image` |
+| **Motion**          | Framer Motion (scroll reveals, counters, page transitions, tilt, animated tabs) |
+| **Real-time**       | Native WebSocket client (live notifications)                     |
+| **Imagery**         | `next/image` with a photo-slot system (`public/photos`) and SVG illustration fallbacks |
 | **Server state**    | TanStack Query 5                                                 |
 | **Client state**    | Zustand                                                          |
 | **Forms**           | React Hook Form + Zod                                            |
@@ -73,7 +75,9 @@ The login page has a **Quick Demo Login** button for each role - no typing neede
 - Manage users (change role, deactivate) and browse the **audit log**
 
 ### ✨ Experience & design
-- Elegant navy-and-gold design system with **light and dark mode** (follows the OS, toggle in the header)
+- Elegant navy-and-gold design system with a refined **light / dark / system** theme switch (dark mode has glow and depth, not a flat black)
+- **Live updates:** a WebSocket connection shows a toast the moment a job changes and refreshes the page data without a reload, with a Live / Offline indicator
+- Motion with purpose: scroll-reveal sections, animated counters, rotating hero headline, pointer-tilt hero, **auto-advancing interactive “how it works”**, animated role tabs, page transitions, shimmer skeletons (all respect *reduced motion*)
 - **Ctrl/⌘ + K command palette** in every dashboard: jump to any page, switch theme, search jobs (admin) or log out
 - **Public technician directory** (`/technicians`) with skill and availability filters, plus profile pages with live ratings and reviews
 - Visual **job progress stepper**, “Open in Maps” on addresses, **printable payment receipts**
@@ -146,7 +150,9 @@ servicepro-fsms-web/
 │   ├── store/auth-store.ts      # Zustand store
 │   ├── types/api.ts             # typed API contracts
 │   └── middleware.ts            # route protection + token rotation
-├── public/images/               # custom SVG illustrations (hero, services, auth, empty, 404)
+├── public/images/               # SVG illustrations (hero, services, auth, empty, 404)
+├── public/photos/               # optional real photos (see README inside)
+├── scripts/photos-manifest.mjs  # detects available photos at build time
 ├── .env.example
 └── package.json
 ```
@@ -194,6 +200,7 @@ npm run dev                      # http://localhost:3000
 | `NEXT_PUBLIC_API_URL` | API base URL including `/api/v1` (e.g. `http://localhost:5000/api/v1`) |
 | `NEXT_PUBLIC_SITE_URL` | Public URL of this site (metadata / Open Graph) |
 | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` | Stripe **test** publishable key (`pk_test_…`) |
+| `NEXT_PUBLIC_WS_URL` | *Optional.* WebSocket origin for live notifications (defaults to the API origin). Works when the API runs on a long-lived host such as Render; on serverless it silently falls back to polling |
 
 ### Scripts
 
@@ -227,7 +234,7 @@ npm run dev                      # http://localhost:3000
 ### Known limitations
 - Tokens are stored in JavaScript-readable cookies so the browser can call the API cross-origin. An httpOnly-cookie backend-for-frontend would be stricter.
 - Card payments are recorded in USD and bKash in BDT, so earnings are totalled per currency.
-- Illustrations are original SVG artwork; drop real photos into `public/images` and swap the `next/image` sources to use them.
+- **Photos:** the UI ships with original SVG illustrations. To use real photographs, add files named as listed in [`public/photos/README.md`](public/photos/README.md) (e.g. `hero.jpg`, `service-plumbing.jpg`) and rebuild — each slot switches to the photo automatically, any empty slot keeps its illustration.
 - Google sign-in is available on the API (`POST /auth/google`) but has no button in this UI.
 
 ---

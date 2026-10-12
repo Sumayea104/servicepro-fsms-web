@@ -108,3 +108,8 @@ export function uploadWithProgress<T>(path: string, formData: FormData, onProgre
     xhr.send(formData);
   });
 }
+
+/** A valid (refreshed if needed) access token for non-fetch consumers such as the WebSocket. */
+export async function getValidAccessToken(): Promise<string | null> {
+  return currentToken();
+}

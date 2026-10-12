@@ -1,12 +1,15 @@
 import Image from 'next/image';
 import { Logo } from '@/components/layout/logo';
 import { ThemeToggle } from '@/components/layout/theme-toggle';
+import { photo } from '@/lib/photos';
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
+  const art = photo('auth', '/images/auth-art.svg');
   return (
     <div className="grid min-h-screen lg:grid-cols-[1.05fr_1fr]">
       <aside className="relative hidden overflow-hidden bg-brand-gradient lg:block">
-        <Image src="/images/auth-art.svg" alt="" fill priority sizes="50vw" className="object-cover object-center" />
+        <Image src={art.src} alt="" fill priority sizes="50vw" className="object-cover object-center" />
+        {art.isPhoto && <div className="absolute inset-0 bg-gradient-to-t from-[#0a1233] via-[#0a1233]/50 to-[#0a1233]/20" aria-hidden />}
         <div className="absolute left-10 top-9"><Logo light /></div>
         <div className="absolute inset-x-10 bottom-10 text-white">
           <h2 className="text-3xl font-extrabold leading-tight">Service work, <span className="text-gradient">under control.</span></h2>

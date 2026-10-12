@@ -12,7 +12,7 @@ import { DonutChart, JobsByStatusChart, JobsTrendChart } from '@/components/char
 import { TechnicianAvatar } from '@/components/technicians/technician-card';
 import { getCurrentUser } from '@/lib/server-session';
 import { serverApi } from '@/lib/server-api';
-import { formatCurrency, humanize, timeAgo } from '@/lib/utils';
+import { humanize, timeAgo } from '@/lib/utils';
 import type { AuditLogEntry, DashboardStats, Job, Paginated, PaymentWithJob, TechnicianProfile } from '@/types/api';
 
 export const metadata: Metadata = { title: 'Admin overview' };
@@ -55,10 +55,10 @@ export default async function AdminOverview() {
         <StatCard label="Pending verification" value={pendingTechs} icon={ShieldCheck} tone="rose" hint="Technicians to review" href="/admin/technicians?tab=pending" />
         <StatCard label="Total jobs" value={totalJobs} icon={ClipboardList} hint={`${s.jobsByStatus.COMPLETED ?? 0} completed`} href="/admin/jobs" />
         <StatCard label="Users" value={s.totalUsers} icon={Users} tone="violet" hint={`${s.totalCustomers} customers`} href="/admin/users" />
-        <StatCard label="Revenue (bKash)" value={formatCurrency(revenue.BDT, 'BDT')} icon={Banknote} tone="success" />
-        <StatCard label="Revenue (Stripe)" value={formatCurrency(revenue.USD, 'USD')} icon={Banknote} tone="success" />
+        <StatCard label="Revenue (bKash)" value={revenue.BDT ?? 0} currency="BDT" icon={Banknote} tone="success" />
+        <StatCard label="Revenue (Stripe)" value={revenue.USD ?? 0} currency="USD" icon={Banknote} tone="success" />
         <StatCard label="Technicians" value={s.totalTechnicians} icon={Wrench} hint={`${s.verifiedTechnicians} verified`} />
-        <StatCard label="Avg. rating" value={s.averageTechnicianRating.toFixed(2)} icon={Star} tone="gold" hint="Across all technicians" />
+        <StatCard label="Avg. rating" value={s.averageTechnicianRating} decimals={2} icon={Star} tone="gold" hint="Across all technicians" />
       </div>
 
       <div className="mt-8 grid gap-6 lg:grid-cols-3">

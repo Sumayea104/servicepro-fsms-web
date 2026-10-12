@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Card, CardContent } from '@/components/ui/card';
+import Image from 'next/image';
 import { PageHero } from '@/components/layout/page-hero';
+import { photo } from '@/lib/photos';
 import { CalendarCheck, ClipboardList, ShieldCheck, Users } from 'lucide-react';
 
 export const metadata: Metadata = {
@@ -17,10 +19,12 @@ const PILLARS = [
 ];
 
 export default function AboutPage() {
+  const team = photo('about', '');
   return (
     <>
       <PageHero eyebrow="About" title="Field service, run like a well-oiled workshop" description="Instead of leaving customers to haggle with strangers, a dispatcher reviews every request, picks the most suitable verified technician and schedules the visit — then payment and feedback close the loop." />
       <div className="container max-w-5xl py-16">
+      {team.isPhoto && <div className="relative mb-10 aspect-[16/7] overflow-hidden rounded-3xl shadow-lift"><Image src={team.src} alt="The ServicePro field team" fill sizes="(min-width: 1024px) 1024px, 100vw" className="object-cover" /></div>}
       <div className="grid gap-6 sm:grid-cols-2">
         {PILLARS.map((p) => (
           <Card key={p.title}><CardContent className="p-6">

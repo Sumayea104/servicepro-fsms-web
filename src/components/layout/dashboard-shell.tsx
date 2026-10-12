@@ -12,6 +12,7 @@ import { CommandPalette } from './command-palette';
 import { Logo } from './logo';
 import { NAV } from './nav-config';
 import { useAuth } from '@/hooks/use-auth';
+import { useLiveNotifications } from '@/hooks/use-live-notifications';
 import { useAuthStore } from '@/store/auth-store';
 import { cn, humanize } from '@/lib/utils';
 import type { User } from '@/types/api';
@@ -30,6 +31,7 @@ export function DashboardShell({ user, children }: { user: User; children: React
   const { logout } = useAuth();
   const setUser = useAuthStore((s) => s.setUser);
   const [open, setOpen] = useState(false);
+  const live = useLiveNotifications();
 
   useEffect(() => setUser(user), [user, setUser]);
   useEffect(() => setOpen(false), [pathname]);
@@ -74,11 +76,11 @@ export function DashboardShell({ user, children }: { user: User; children: React
 
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[17rem_1fr]">
-      <aside className="sticky top-0 hidden h-screen bg-brand-gradient p-5 pl-6 lg:block">{sidebar}</aside>
+      <aside className="sticky top-0 hidden h-screen bg-sidebar p-5 pl-6 lg:block">{sidebar}</aside>
       {open && (
         <div className="fixed inset-0 z-50 lg:hidden" role="dialog" aria-modal="true" aria-label="Navigation">
           <div className="absolute inset-0 bg-[#050b24]/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
-          <aside className="absolute inset-y-0 left-0 w-72 bg-brand-gradient p-5 pl-6 shadow-lift animate-in slide-in-from-left">{sidebar}</aside>
+          <aside className="absolute inset-y-0 left-0 w-72 bg-sidebar p-5 pl-6 shadow-lift animate-in slide-in-from-left">{sidebar}</aside>
         </div>
       )}
       <div className="flex min-w-0 flex-col">
@@ -88,12 +90,16 @@ export function DashboardShell({ user, children }: { user: User; children: React
             <p className="hidden text-sm font-semibold sm:block">{current?.label ?? 'Dashboard'}</p>
           </div>
           <div className="flex items-center gap-1.5">
+            <span className="mr-1 hidden items-center gap-1.5 rounded-full border bg-card px-2.5 py-1 text-xs font-medium text-muted-foreground md:flex" title={live ? 'Live updates connected' : 'Live updates offline — refreshing every 30 seconds'}>
+              <span className="relative flex h-2 w-2"><span className={cn('absolute inline-flex h-full w-full rounded-full opacity-75', live ? 'animate-ping bg-success' : 'bg-muted-foreground/40')} /><span className={cn('relative inline-flex h-2 w-2 rounded-full', live ? 'bg-success' : 'bg-muted-foreground/50')} /></span>{live ? 'Live' : 'Offline'}
+            </span>
             <CommandPalette role={user.role} onLogout={logout} />
-            <ThemeToggle />
+            <ThemeToggle className="hidden sm:flex" />
+            <ThemeToggle compact className="sm:hidden" />
             <NotificationBell />
           </div>
         </header>
-        <main className="flex-1 p-4 sm:p-6 lg:p-8"><div className="mx-auto w-full max-w-7xl animate-fade-up">{children}</div></main>
+        <main className="flex-1 p-4 sm:p-6 lg:p-8"><div className="mx-auto w-full max-w-7xl">{children}</div></main>
       </div>
     </div>
   );

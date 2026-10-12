@@ -4,6 +4,8 @@ import type { Metadata } from 'next';
 import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { PageHero } from '@/components/layout/page-hero';
+import { photo, type PhotoSlot } from '@/lib/photos';
+import { Stagger, StaggerItem } from '@/components/motion/reveal';
 import { humanize } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -29,18 +31,21 @@ export default function ServicesPage() {
       <PageHero eyebrow="Services" title="Every repair, matched to the right technician" description="Pick a category when you submit a request — dispatchers only assign verified technicians who have that skill.">
         <Button asChild size="lg" variant="gold"><Link href="/register">Request a service <ArrowRight className="h-4 w-4" /></Link></Button>
       </PageHero>
-      <div className="container grid gap-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
-        {SERVICES.map((s) => (
-          <article key={s.slug} className="group overflow-hidden rounded-2xl border bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
-            <div className="overflow-hidden"><Image src={`/images/service-${s.slug}.svg`} alt={`${humanize(s.key)} illustration`} width={480} height={320} className="h-auto w-full transition-transform duration-500 group-hover:scale-105" /></div>
+      <Stagger className="container grid gap-6 py-16 sm:grid-cols-2 lg:grid-cols-4">
+        {SERVICES.map((s) => {
+          const img = photo(`service-${s.slug}` as PhotoSlot, `/images/service-${s.slug}.svg`);
+          return (
+          <StaggerItem key={s.slug}><article className="group overflow-hidden rounded-2xl border bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-lift">
+            <div className="relative aspect-[3/2] overflow-hidden"><Image src={img.src} alt={`${humanize(s.key)} service`} fill sizes="(min-width: 1024px) 25vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-110" /></div>
             <div className="p-5">
               <h2 className="font-bold">{humanize(s.key)}</h2>
               <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{s.body}</p>
               <Link href={`/technicians?skill=${s.key}`} className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline">See technicians <ArrowRight className="h-3.5 w-3.5" /></Link>
             </div>
-          </article>
-        ))}
-      </div>
+          </article></StaggerItem>
+          );
+        })}
+      </Stagger>
     </>
   );
 }
